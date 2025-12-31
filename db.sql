@@ -46,6 +46,15 @@ CREATE TABLE IF NOT EXISTS tasks (
     UNIQUE(sprint_id, titre) 
 );
 
+CREATE TABLE user_task (
+    task_id INT NOT NULL,
+    user_id INT NOT NULL,
+    role ENUM('responsable', 'collaborateur') DEFAULT 'collaborateur',
+    date_assignation DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (task_id, user_id),
+    FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
 
 CREATE TABLE IF NOT EXISTS comments (
     id INT AUTO_INCREMENT PRIMARY KEY,
